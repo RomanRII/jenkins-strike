@@ -1,0 +1,496 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>Sample Name</name>
+          <description>The name of this profile (used in the Indicators of Compromise report)</description>
+          <defaultValue>Jenkins Profile</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Sleep Time</name>
+          <description>Default sleep time (in milliseconds)</description>
+          <defaultValue>60000</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Jitter</name>
+          <description>Default jitter factor (0-99)</description>
+          <defaultValue>0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Data Jitter</name>
+          <description>Append random-length string (up to data_jitter value) to http-get and http-post server output.</description>
+          <defaultValue>0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Beacon User Agent</name>
+          <description>Default User-Agent for HTTP comms.</description>
+          <defaultValue>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>HTTPS Certificate Type</name>
+          <description>Sets https-certificate values to be modified (Default: Self Signed) vs keystore and password (Disable for keystore and password)</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Access Token Controls</name>
+          <description>0 = TOKEN_ALL_ACCESS
+11 = TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_QUERY (1+2+8)
+</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>11</string>
+              <string>0</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>TCP Port</name>
+          <description>Default TCP Beacon listen port</description>
+          <defaultValue>4444</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Random TCP Frame Header</name>
+          <description>Prepend random header to TCP Beacon messages</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SMB Beacon Pipe Name</name>
+          <description>Name of pipe for SMB sessions. Each # is replaced with a random hex value.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>ProtectionManager_####_##</string>
+              <string>Winsock2\\\\CatalogChangeListener-#######-1</string>
+              <string>Spool\\\\pipe_####_##</string>
+              <string>WkSvcPipeMgr_######</string>
+              <string>NetClient_######</string>
+              <string>RPC_######</string>
+              <string>WiFiNetMgr####_##</string>
+              <string>AuthPipe####_##</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SMB Beacon Pipe Name Stager</name>
+          <description>Name of pipe for SMB stagr. Each # is replaced with a random hex value.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Winsock2\\\\CatalogChangeListener-#######-1</string>
+              <string>Spool\\\\pipe_####_##</string>
+              <string>WkSvcPipeMgr_######</string>
+              <string>NetClient_######</string>
+              <string>RPC_######</string>
+              <string>WiFiNetMgr####_##</string>
+              <string>AuthPipe####_##</string>
+              <string>ProtectionManager_####_##</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Random SMB Frame Header</name>
+          <description>Prepend random header to SMB Beacon messages</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS Idle</name>
+          <description>IP address used to indicate no tasks are available to DNS Beacon; Mask for other DNS C2 values</description>
+          <defaultValue>0.0.0.0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS Max TXT</name>
+          <description>Maximum length of DNS TXT responses for tasks (0-255)</description>
+          <defaultValue>252</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS Sleep</name>
+          <description>Force a sleep prior to each individual DNS request. (In milliseconds)</description>
+          <defaultValue>1</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS TTL</name>
+          <description>TTL for DNS replies</description>
+          <defaultValue>5</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon Max DNS</name>
+          <description>Maximum length of hostname when uploading data over DNS (0-255)</description>
+          <defaultValue>252</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS Stager Prepend</name>
+          <description>Prepend text to payload stage delivered to DNS TXT record stager</description>
+          <defaultValue>doc-stg-prepend</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon DNS Stager Subhost</name>
+          <description>Subdomain used by DNS TXT record stager.</description>
+          <defaultValue>stage.123456.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon Beacon</name>
+          <description>DNS subhost prefix used for beaconing requests. (lowercase text)</description>
+          <defaultValue>doc.bc.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon GETA</name>
+          <description>DNS subhost prefix used for A record requests (lowercase text)</description>
+          <defaultValue>cdn.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon GET AAAA</name>
+          <description>DNS subhost prefix used for AAAA record requests (lowercase text)</description>
+          <defaultValue>www6.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon GET TXT</name>
+          <description>DNS subhost prefix used for TXT record requests (lowercase text)</description>
+          <defaultValue>api.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon PUT Meta Data</name>
+          <description>DNS subhost prefix used for metadata requests (lowercase text)</description>
+          <defaultValue>www.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon PUT Output</name>
+          <description>DNS subhost prefix used for output requests (lowercase text)</description>
+          <defaultValue>post.</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DNS Beacon NS Response</name>
+          <description>How to process NS Record requests. &quot;drop&quot; does not respond to the request (default), &quot;idle&quot; responds with A record for IP address from &quot;dns_idle&quot;, &quot;zero&quot; responds with A record for 0.0.0.0</description>
+          <defaultValue>drop</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SSH Banner</name>
+          <description>SSH client banner</description>
+          <defaultValue>OpenSSH 9.1p1 Debian 1 (protocol 2.0)</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>SSH Pipename</name>
+          <description>Name of pipe for SSH sessions. Each # is replaced with a random hex value. A's will be replaced with random chars</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Spool\\\\pipe_####_##</string>
+              <string>WkSvcPipeMgr_######</string>
+              <string>NetClient_######</string>
+              <string>RPC_######</string>
+              <string>WiFiNetMgr####_##</string>
+              <string>AuthPipe####_##</string>
+              <string>ProtectionManager_####_##</string>
+              <string>Winsock2\\\\CatalogChangeListener-#######-1</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>HTTP Stager URI x86</name>
+          <description>x86 payload stage URI</description>
+          <defaultValue>/download/stager/a86</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>HTTP Stager URI x64</name>
+          <description>x64 payload stage URI</description>
+          <defaultValue>/download/stager/a64</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>HTTP Stager Server Header1</name>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Apache</string>
+              <string>nginx</string>
+              <string>ESF</string>
+              <string>cloudflare</string>
+              <string>gsw</string>
+              <string>CloudFront</string>
+              <string>Node.js</string>
+              <string>Microsoft-IIS/10.0</string>
+              <string>AkamaiGHost</string>
+              <string>Google Frontend</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Post Ex Spawn To x86</name>
+          <description>Control the default temporary process Beacon will spawn for its post-exploitation features. (x86)</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>%windir%\\syswow64\\svchost.exe -k netsvc</string>
+              <string>%windir%\\syswow64\\svchost.exe -k wksvc</string>
+              <string>%windir%\\syswow64\\Locator.exe</string>
+              <string>%windir%\\syswow64\\systray.exe</string>
+              <string>%windir%\\syswow64\\WUAUCLT.exe</string>
+              <string>%windir%\\syswow64\\w32tm.exe</string>
+              <string>%windir%\\syswow64\\dllhost.exe -o enable</string>
+              <string>%windir%\\syswow64\\DevicePairingWizard.exe</string>
+              <string>%windir%\\syswow64\\getmac.exe /V</string>
+              <string>%windir%\\syswow64\\grpconv.exe</string>
+              <string>%windir%\\syswow64\\EhStorAuthn.exe</string>
+              <string>%windir%\\syswow64\\dns-sd.exe</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Post Ex Spawn To x64</name>
+          <description>Control the default temporary process Beacon will spawn for its post-exploitation features. (x64)</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>%windir%\\sysnative\\svchost.exe -k netsvc</string>
+              <string>%windir%\\sysnative\\svchost.exe -k wksvc</string>
+              <string>%windir%\\sysnative\\Locator.exe</string>
+              <string>%windir%\\sysnative\\systray.exe</string>
+              <string>%windir%\\sysnative\\WUAUCLT.exe</string>
+              <string>%windir%\\sysnative\\w32tm.exe</string>
+              <string>%windir%\\sysnative\\dllhost.exe -o enable</string>
+              <string>%windir%\\sysnative\\DevicePairingWizard.exe</string>
+              <string>%windir%\\sysnative\\getmac.exe /V</string>
+              <string>%windir%\\sysnative\\grpconv.exe</string>
+              <string>%windir%\\sysnative\\EhStorAuthn.exe</string>
+              <string>%windir%\\sysnative\\dns-sd.exe</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Post Ex Obfuscate</name>
+          <description>Scrambles the content of the post-ex DLLs and settles the post-ex capability into memory in a more OPSEC-safe way.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Post Ex Smartinject</name>
+          <description>Directs Beacon to embed key function pointers, like GetProcAddress and LoadLibrary, into its same-architecture post-ex DLLs. This allows post-ex DLLs to bootstrap themselves in a new process without shellcode-like behavior that is detected and mitigated by watching memory accesses to the PEB and kernel32.dll.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Post Ex AMSI Disable</name>
+          <description>Directs powerpick, execute-assembly, and psinject to patch the AmsiScanBuffer function before loading .NET or PowerShell code.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Post Ex Pipename</name>
+          <description>Default name of pipe to use for SMB Beacon’s post exploitation activities. Each # is replaced with a random hex value.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>NetClient_##</string>
+              <string>RPC_##</string>
+              <string>WiFiNetMgr_##</string>
+              <string>AuthPipeD_##</string>
+              <string>ProtectionManager_##</string>
+              <string>Winsock2\\\\CatalogChangeListener-##-##</string>
+              <string>Spool\\\\pipe_##</string>
+              <string>WkSvcPipeMgr_##</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Post Ex Keylogger</name>
+          <description>The GetAsyncKeyState option (default) uses the GetAsyncKeyState API to observe keystrokes. The SetWindowsHookEx option uses SetWindowsHookEx to observe keystrokes.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>GetAsyncKeyState</string>
+              <string>SetWindowsHookEx</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Allocator Settings</name>
+          <description>The preferred method to allocate memory in the current process to execute a BOF. Specify VirtualAlloc, MapViewOfFile, or HeapAlloc. </description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>HeapAlloc</string>
+              <string>MapViewOfFile</string>
+              <string>VirtualAlloc</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Memory Indicator Stomp PE</name>
+          <description>Ask ReflectiveLoader to stomp MZ, PE, and e_lfanew values after it loads Beacon payload</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Memory Indicator Obfuscate</name>
+          <description>Obfuscate the Reflective DLL’s import table, overwrite unused header content, and ask ReflectiveLoader to copy Beacon to new memory without its DLL headers. Review sleepmask and UDRL considerations for obfuscate</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Memory Indicator Stage Cleanup</name>
+          <description>Ask Beacon to attempt to free memory associated with the Reflective DLL package that initialized it.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Memory Indicator Sleep Mask</name>
+          <description>Obfuscate Beacon and it's heap, in-memory, prior to sleeping.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Memory Indicator Smart Inject</name>
+          <description>Use embedded function pointer hints to bootstrap Beacon agent without walking kernel32 EAT</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>Memory Indicator Name</name>
+          <description>The Exported name of the Beacon DLL</description>
+          <defaultValue>beacon.x64.dll</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Proc Injection BOF Allocator</name>
+          <description>The preferred method to allocate memory in the current process to execute a BOF. Specify VirtualAlloc, MapViewOfFile, or HeapAlloc. </description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>VirtualAlloc</string>
+              <string>MapViewOfFile</string>
+              <string>HeapAlloc</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>Proc Injection Reuse Mem</name>
+          <description>Reuse the allocated memory for subsequent BOF executions otherwise release the memory. Memory will be cleared when not in use. If the available amount of memory is not large enough it will be released and allocated with the larger size. </description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Proc Injection Allocator</name>
+          <description>The preferred method to allocate memory in the remote process. Specify VirtualAllocEx or NtMapViewOfSection. The NtMapViewOfSection option is for same-architecture injection only. VirtualAllocEx is always used for cross-arch memory allocations. </description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>VirtualAllocEx</string>
+              <string>NtMapViewOfSection</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Proc Injection Min Alloc</name>
+          <description>Minimum amount of memory to request for injected or BOF content. </description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>4096</string>
+              <string>20480</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>HTTP Config Server Header</name>
+          <description>HTTP Config Server Header</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Apache</string>
+              <string>nginx</string>
+              <string>ESF</string>
+              <string>cloudflare</string>
+              <string>gsw</string>
+              <string>CloudFront</string>
+              <string>Node.js</string>
+              <string>Microsoft-IIS/10.0</string>
+              <string>AkamaiGHost</string>
+              <string>Google Frontend</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>HTTP Config Trust XForward</name>
+          <description>This option decides if Cobalt Strike uses the X-Forwarded-For HTTP header to determine the remote address of a request. Use this option if your Cobalt Strike server is behind an HTTP redirector.</description>
+          <defaultValue>true</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>HTTP GET URI</name>
+          <description>Transaction URI</description>
+          <defaultValue>/sendData/get</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>HTTP GET Server Header</name>
+          <description>HTTP GET Server Header</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Apache</string>
+              <string>nginx</string>
+              <string>ESF</string>
+              <string>cloudflare</string>
+              <string>gsw</string>
+              <string>CloudFront</string>
+              <string>Node.js</string>
+              <string>Microsoft-IIS/10.0</string>
+              <string>AkamaiGHost</string>
+              <string>Google Frontend</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>HTTP POST URI</name>
+          <description>Transaction URI</description>
+          <defaultValue>/sendData/post</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>HTTP POST Server Header</name>
+          <description>HTTP POST Server Header</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Apache</string>
+              <string>nginx</string>
+              <string>ESF</string>
+              <string>cloudflare</string>
+              <string>gsw</string>
+              <string>CloudFront</string>
+              <string>Node.js</string>
+              <string>Microsoft-IIS/10.0</string>
+              <string>AkamaiGHost</string>
+              <string>Google Frontend</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>DEV01</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>powershell.exe python3 E:\Arsenal\Profiles\build.py --samplename '%Sample Name%' --sleeptime '%Sleep Time%' --jitter '%Jitter%' --datajitter '%Data Jitter%' --beaconuagent '%Beacon User Agent%' --certtype '%HTTPS Certificate Type%' --accesstoken '%Access Token Controls%' --tcpport '%TCP Port%' --tcpheader '%Random TCP Frame Header%' --smbpipe '%SMB Beacon Pipe Name%' --smbpipestager '%SMB Beacon Pipe Name Stager%' --smbheader '%Random SMB Frame Header%' --dnsbeaconidle '%DNS Beacon DNS Idle%' --dnsmaxtxt '%DNS Beacon DNS Max TXT%' --dnssleep '%DNS Beacon DNS Sleep%' --dnsttl '%DNS Beacon DNS TTL%' --dnsmaxdns '%DNS Beacon Max DNS%' --dnsstageprepend '%DNS Beacon DNS Stager Prepend%' --dnsdtagesubhost '%DNS Beacon DNS Stager Subhost%' --dnsbeacon '%DNS Beacon Beacon%' --dnsgeta '%DNS Beacon GETA%' --dnsgetaaaa '%DNS Beacon GET AAAA%' --dnsgettxt '%DNS Beacon GET TXT%' --dnsputmetadata '%DNS Beacon PUT Meta Data%' --dnsputoutput '%DNS Beacon PUT Output%' --dnsnsresponse '%DNS Beacon NS Response%' --sshbanner '%SSH Banner%' --sshpipename '%SSH Pipename%' --httpstageruries '%HTTP Stager URI x86%' --httpstagerurisf '%HTTP Stager URI x64%' --stagerserverhead '%HTTP Stager Server Header1%' --pespawntoes '%Post Ex Spawn To x86%' --pespawntosf '%Post Ex Spawn To x64%' --peobfuscate '%Post Ex Obfuscate%' --pesmartinject '%Post Ex Smartinject%' --peamsidisable '%Post Ex AMSI Disable%' --postexpipe '%Post Ex Pipename%' --pekeylogger '%Post Ex Keylogger%' --allocsettings '%Allocator Settings%' --memindstomppe '%Memory Indicator Stomp PE%' --memindobfuscate '%Memory Indicator Obfuscate%' --memindcleanup '%Memory Indicator Stage Cleanup%' --memindsleepmask '%Memory Indicator Sleep Mask%' --memindsmartinj '%Memory Indicator Smart Inject%' --memindname '%Memory Indicator Name%' --procinjbofalloc '%Proc Injection BOF Allocator%' --bofreusemem '%Proc Injection Reuse Mem%' --procinjalloc '%Proc Injection Allocator%' --procinjminalloc '%Proc Injection Min Alloc%' --httpcfgsrvheader '%HTTP Config Server Header%' --httpcfgtrustxfwd '%HTTP Config Trust XForward%' --httpgeturi '%HTTP GET URI%' --httpgetsrvhead '%HTTP GET Server Header%' --httpposturi '%HTTP POST URI%' --httppostsrvhead '%HTTP POST Server Header%'</command>
+      <configuredLocalRules/>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
