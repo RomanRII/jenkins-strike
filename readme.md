@@ -3,7 +3,11 @@
   * Hardcoded template location. Adjust as needed
 * https://github.com/RomanRII/jenkins-strike/blob/main/config.xml#L490
   * Current implementation was for a windows box. Modify if using a different system
+ 
+ # Download profile from
+ ![image](https://user-images.githubusercontent.com/74742067/210201647-94e8f55f-af11-4e3d-9ac2-1543e655a611.png)
 
+# Current options
 ![image](https://user-images.githubusercontent.com/74742067/210201496-db3f69a2-f21b-4d89-91c7-d17f764f76f5.png)
 ![image](https://user-images.githubusercontent.com/74742067/210201530-c9716f2f-a02c-4a09-968f-0d854701ddcc.png)
 ![image](https://user-images.githubusercontent.com/74742067/210201545-aca40272-f616-4583-b035-c56c9e113c5b.png)
