@@ -120,7 +120,7 @@ def main():
 	dnsputoutput = args.dnsputoutput
 	dnsnsresponse = args.dnsnsresponse
 
-	defaulttemplate = "E:/Arsenal/Profiles/template/template.profile"
+	defaulttemplate = "template/template.profile"
 	c2profiletemplatefilecontents = open(defaulttemplate,'r').read()
 	c2profiletemplate = Template(c2profiletemplatefilecontents)
 
