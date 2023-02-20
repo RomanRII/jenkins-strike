@@ -144,14 +144,12 @@ stage {
     transform-x86 {
         strrep "ReflectiveLoader" "{{ stage_transform_x86_strrep1 }}";
         strrep "This program cannot be run in DOS mode" "";
-        strrep "beacon.dll" "";
+        strrep "beacon.dll" "{{ memoryindicatorname }}";
     }
     transform-x64 {
         strrep "ReflectiveLoader" "{{ stage_transform_x64_strrep1 }}";
-        strrep "beacon.x64.dll" "";
+        strrep "beacon.x64.dll" "{{ memoryindicatorname }}";
     }
-
-    stringw "{{ samplename }}";
 }
 
 ################################################
